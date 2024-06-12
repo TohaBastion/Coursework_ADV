@@ -1,12 +1,9 @@
 import pygame
 import os
 
-
 pygame.init()
 
-
 FILE_DIR = os.path.dirname(__file__)
-
 
 # Зображення
 BACKGROUND = pygame.image.load(os.path.join(FILE_DIR, 'ground_texture898.jpg'))
@@ -19,12 +16,10 @@ FLAG_IMAGE = '%s/flag.png' % FILE_DIR
 with open(FILE_PATH, 'r') as f:
     level_map = [line.strip("\n") for line in f]
 
-
 # Параметри екрану
 TILE_SIZE = 40
 SCREEN_WIDTH = TILE_SIZE * len(level_map[0])
 SCREEN_HEIGHT = TILE_SIZE * len(level_map)
-
 
 # Параметри тексту
 font = pygame.font.Font(None, 120)

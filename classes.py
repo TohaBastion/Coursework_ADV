@@ -4,6 +4,7 @@ from setting import *
 
 class Wall(pygame.sprite.Sprite):
     """Клас блоків лабіринту"""
+
     def __init__(self, x, y):
         super().__init__()
         self.image = pygame.Surface((TILE_SIZE, TILE_SIZE))
@@ -14,6 +15,7 @@ class Wall(pygame.sprite.Sprite):
 
 class GameSprite(pygame.sprite.Sprite):
     """Абстрактний клас"""
+
     def __init__(self, image, x, y, width, height, speed):
         super().__init__()
         self.image = pygame.Surface((width, height))
@@ -22,7 +24,6 @@ class GameSprite(pygame.sprite.Sprite):
         self.speed = speed
         self.rect = self.image.get_rect(topleft=(x * TILE_SIZE, y * TILE_SIZE))
         self.angle = 0
-
 
     def update(self):
         pass
@@ -38,6 +39,7 @@ class GameSprite(pygame.sprite.Sprite):
 
 class Player(GameSprite):
     """Клас основного гравця"""
+
     def update(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
@@ -52,7 +54,6 @@ class Player(GameSprite):
         elif keys[pygame.K_DOWN]:
             self.rect.y += self.speed
             self.rotate_to(180)
-
 
     def collide(self, blocks):
         for wall in blocks:
@@ -70,6 +71,7 @@ class Player(GameSprite):
 
 class Monster(pygame.sprite.Sprite):
     """Клас для зомбі"""
+
     def __init__(self):
         super().__init__()
         self.image = pygame.Surface((40, 40))
@@ -78,7 +80,6 @@ class Monster(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(topleft=random.choice([(40, 40), (720, 80)]))
         self.speed = 2
         self.angle = random.choice([0, 180, 90, 270])
-
 
     def update(self):
         """Функція руху зомбі"""
@@ -90,8 +91,6 @@ class Monster(pygame.sprite.Sprite):
             self.rect.x += self.speed
         elif self.angle == 90:
             self.rect.x -= self.speed
-
-
 
     def collide(self, blocks):
         """Функція обходу перешкод"""
@@ -111,8 +110,10 @@ class Monster(pygame.sprite.Sprite):
                         self.angle = random.choice([0, 90, 270])
                         self.rect.bottom = wall.rect.top
 
+
 class Flag(pygame.sprite.Sprite):
     """Клас виграшного флагу що треба знищити"""
+
     def __init__(self, x, y):
         super().__init__()
         self.image = pygame.Surface((TILE_SIZE, TILE_SIZE))
@@ -123,6 +124,7 @@ class Flag(pygame.sprite.Sprite):
 
 class Bullet(pygame.sprite.Sprite):
     """Клас снаряду"""
+
     def __init__(self, start_x, start_y, angle):
         super().__init__()
         self.image = pygame.Surface((10, 10))
@@ -142,7 +144,6 @@ class Bullet(pygame.sprite.Sprite):
             self.rect.x += self.speed
         elif self.angle == 90:
             self.rect.x -= self.speed
-
 
     def collide(self, blocks):
         """Функція знищщення куль при потраплянні в стіни"""

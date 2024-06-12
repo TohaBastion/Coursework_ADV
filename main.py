@@ -1,7 +1,7 @@
+"""Основний файл, що містить логіку проведення гри"""
 import random
 from setting import *
 from classes import Player, Wall, Bullet, Monster, Flag
-
 
 # Ініціалізація Pygame
 pygame.init()
@@ -13,6 +13,7 @@ pygame.display.set_caption("Zombi")
 
 # Завантаження рівня
 def load_level(level_map):
+    """Функція завантаження рівня"""
     window.blit(background, (0, 0))
     walls = pygame.sprite.Group()
     player = None
@@ -29,12 +30,11 @@ def load_level(level_map):
     return walls, player, flag
 
 
-# Головний цикл гри
+# Головний цикл гри та його змінні та групування
 walls, player, flag = load_level(level_map)
 bullets = pygame.sprite.Group()
 zombies = pygame.sprite.Group()
 clock = pygame.time.Clock()
-
 
 running = True
 winner = False
@@ -51,7 +51,6 @@ while running:
                     player.angle
                 )
                 bullets.add(bullet)
-
 
     player.update()
     bullets.update()
@@ -89,9 +88,9 @@ while running:
     clock.tick(60)
     pygame.display.flip()
 
-
+# Цикл відповідальний за події при перемоі
 cors = (SCREEN_WIDTH // 2 - winner_text.get_width() // 2,
-            SCREEN_HEIGHT // 2 - winner_text.get_height() // 2)
+        SCREEN_HEIGHT // 2 - winner_text.get_height() // 2)
 while winner:
     window.blit(background, (0, 0))
     window.blit(winner_text, cors)
@@ -100,9 +99,9 @@ while winner:
             winner = False
     pygame.display.flip()
 
-
+# Цикл відповідальний за події при програші
 cors1 = (SCREEN_WIDTH // 2 - lose_text.get_width() // 2,
-            SCREEN_HEIGHT // 2 - lose_text.get_height() // 2)
+         SCREEN_HEIGHT // 2 - lose_text.get_height() // 2)
 while lose:
     window.blit(background, (0, 0))
     window.blit(lose_text, cors1)
